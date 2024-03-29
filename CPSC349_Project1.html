@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Project</title>
+    <style>
+        body{
+            background: rgb(12, 7, 43);
+        }
+        .container{
+            background-color: rgb(124, 150, 215);
+            width: 90%;
+            max-width: 600px;
+            margin: 100px auto 0;
+            border-radius: 5px;
+            padding: 30px;
+        }
+        h1{
+            font-size: 25px;
+            color: white;
+            font-weight: 600;
+            border-bottom: 2px solid black;
+            padding-bottom: 30px;
+            text-align: center;
+            position: static;
+        }
+        .btn{
+            background: white;
+            color: black;
+            font-weight: 500;
+            width: 100%;
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: left;
+            border-radius: 4px;
+        }
+        .btn:hover{
+            background-color: rgb(76, 183, 228);
+            cursor: pointer;
+        }
+        .btn.clicked {
+            background-color: #1e208c;
+            color: white;
+        }
+        #submit{
+            background: white;
+            color: black;
+            font-weight: 500;
+            width: 150px;
+            border: 0;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 20px auto 0;
+            cursor: pointer;
+            display: block;
+        }
+        #submit:active{
+            background-color: #1e208c;
+            color: white;
+        }
+        #reset{
+            background: #1e208c;
+            color: white;
+            font-weight: 500;
+            width: 100px;
+            border: 0;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        #reset:active{
+            background-color: rgb(76, 183, 228);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz</h1>
+        <div>
+            <div id="quizContainer"></div>
+            <button type="checkbox" id="submit">Submit Quiz</button>
+            <button id="reset">Reset</button>
+            <div id="result"></div>
+        </div>
+    </div>
+    <script>
+        // quiz array
+        const questions = [
+            {
+                question: "First quiz",
+                answers: [
+                    { text: "Answer 1", correct: false },
+                    { text: "Answer 2", correct: false },
+                    { text: "Answer 3", correct: true },
+                    { text: "Answer 4", correct: false },
+                ]
+            },
+            {
+                question: "Second quiz",
+                answers: [
+                    { text: "Answer 1", correct: false },
+                    { text: "Answer 2", correct: false },
+                    { text: "Answer 3", correct: true },
+                    { text: "Answer 4", correct: false },
+                ]
+            },
+            {
+                question: "Third quiz",
+                answers: [
+                    { text: "Answer 1", correct: false },
+                    { text: "Answer 2", correct: false },
+                    { text: "Answer 3", correct: true },
+                    { text: "Answer 4", correct: false },
+                ]
+            },
+            {
+                question: "Fourth quiz",
+                answers: [
+                    { text: "Answer 1", correct: false },
+                    { text: "Answer 2", correct: false },
+                    { text: "Answer 3", correct: true },
+                    { text: "Answer 4", correct: false },
+                ]
+            },
+            {
+                question: "Fifth quiz",
+                answers: [
+                    { text: "Answer 1", correct: false },
+                    { text: "Answer 2", correct: false },
+                    { text: "Answer 3", correct: true },
+                    { text: "Answer 4", correct: false },
+                ]
+            }
+        ];
+
+        // html elements
+        const quizContainer = document.getElementById("quizContainer");
+        const submitButton = document.getElementById("submit");
+        const resultDisplay = document.getElementById("result");
+        const resetScoreButton = document.getElementById("reset");
+        
+        let score = 0;
+
+        function displayQuizzes() {
+            questions.forEach((quiz, index) => {
+                // creates container for each quiz
+                const quizElement = document.createElement("div");
+                quizElement.classList.add("quiz");
+
+                // display the questions from the array with index number
+                const questionElement = document.createElement("h2");
+                questionElement.textContent = `${index + 1}. ${quiz.question}`;
+
+                // display answer buttons
+                const answerButtons = document.createElement("div");
+                answerButtons.classList.add("answerButtons");
+
+                // create buttons from the array answers
+                quiz.answers.forEach(answer => {
+                    const button = document.createElement("button");
+                    button.textContent = answer.text;
+                    button.classList.add("btn");
+                    button.dataset.correct = answer.correct;
+                    button.addEventListener("click", () => handleAnswerClick(button, quiz));
+                    answerButtons.appendChild(button);
+                });
+
+                // group the question with associated answer buttons
+                quizElement.appendChild(questionElement);
+                quizElement.appendChild(answerButtons);
+
+                // append the quizzes in the container
+                quizContainer.appendChild(quizElement);
+            });
+        }
+
+        function handleAnswerClick(button, quiz) {
+            // true state when the correct answer is clicked
+            const isCorrect = button.dataset.correct === "true";
+
+            // Set on and off the clicked state of the button
+            if (button.classList.contains("clicked")) {
+                button.classList.remove("clicked");
+                quiz.answeredCorrectly = false;
+            } else {
+                // Reset previously clicked buttons for this question
+                const quizItem = button.closest(".quiz");
+                const answerButtons = quizItem.querySelectorAll(".answerButtons button");
+                answerButtons.forEach(btn => {
+                    btn.classList.remove("clicked");
+                    btn.disabled = false;
+                });
+
+                // Mark the current button as clicked
+                button.classList.add("clicked");
+
+                // Set the correct state based on the currect answer clicked
+                quiz.answeredCorrectly = isCorrect;
+            }
+        }
+
+        // show results based on the answers clicke correctly
+        function showResult() {       
+            score = questions.filter(quiz => quiz.answeredCorrectly).length;
+            resultDisplay.textContent = `Your score: ${score}/${questions.length}`;
+        }
+
+        displayQuizzes();
+        submitButton.addEventListener("click", () => {
+            showResult();
+            submitButton.classList.add("clicked");
+        });
+
+        resetScoreButton.addEventListener("click", () => {
+            score = 0;
+            resultDisplay.textContent = '';
+
+            // Reset the answeredCorrectly property of each question to false
+            questions.forEach(quiz => {
+                quiz.answeredCorrectly = false;
+            });
+            
+            // Reset the clicked buttons
+            const answerButtons = document.querySelectorAll(".answerButtons button");            
+            answerButtons.forEach(button => {
+                button.classList.remove("clicked");
+                button.disabled = false;
+            });
+        })
+
+    </script>
+</body>
+</html>
