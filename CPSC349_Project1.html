@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Quiz Project</title>
     <style>
         body{
@@ -72,9 +73,26 @@
         #reset:active{
             background-color: rgb(76, 183, 228);
         }
+        .correct-answer {
+            background-color: #8bc34a; /* Change color to your preference */
+            color: white; /* Change text color to your preference */
+            font-weight: bold; /* Optionally make the text bold */
+        }
+        
+        .icon {
+            color: white;
+            font-size: 30px;
+            
+        }
+        .icon:hover {
+            color: rgb(76, 183, 228);
+        }   
     </style>
 </head>
 <body>
+        <a class="icon" href="QuizMainPage.html">
+            <i class="bi bi-arrow-left" ></i>
+        </a>
     <div class="container">
         <h1>Quiz</h1>
         <div>
@@ -88,48 +106,93 @@
         // quiz array
         const questions = [
             {
-                question: "First quiz",
+                question: "What does HTML stand for?",
                 answers: [
-                    { text: "Answer 1", correct: false },
-                    { text: "Answer 2", correct: false },
-                    { text: "Answer 3", correct: true },
-                    { text: "Answer 4", correct: false },
+                    { text: "High Text Markup Language", correct: false },
+                    { text: "Hyper Tabular Markup Language", correct: false },
+                    { text: "Hyper Text Markup Language", correct: true },
+                    { text: "None of the above", correct: false },
                 ]
             },
             {
-                question: "Second quiz",
+                question: "What attribute is used to provide an alternate text for an image, in case the image cannot be displayed?",
                 answers: [
-                    { text: "Answer 1", correct: false },
-                    { text: "Answer 2", correct: false },
-                    { text: "Answer 3", correct: true },
-                    { text: "Answer 4", correct: false },
+                    { text: "`title` ", correct: false },
+                    { text: "`longdesc` ", correct: false },
+                    { text: "`alt` ", correct: true },
+                    { text: "`src` ", correct: false },
                 ]
             },
             {
-                question: "Third quiz",
+                question: "What is the correct HTML element for inserting a line break",
                 answers: [
-                    { text: "Answer 1", correct: false },
-                    { text: "Answer 2", correct: false },
-                    { text: "Answer 3", correct: true },
-                    { text: "Answer 4", correct: false },
+                    { text: "`<break>` ", correct: false },
+                    { text: "`<lb>`", correct: false },
+                    { text: "`<br>` ", correct: true },
+                    { text: "`<linebreak>` ", correct: false },
                 ]
             },
             {
-                question: "Fourth quiz",
+                question: "Which HTML tag is used to define an internal style sheet?",
                 answers: [
-                    { text: "Answer 1", correct: false },
-                    { text: "Answer 2", correct: false },
-                    { text: "Answer 3", correct: true },
-                    { text: "Answer 4", correct: false },
+                    { text: "`<stylesheet>` ", correct: false },
+                    { text: "`<css>`", correct: false },
+                    { text: "`<style>` ", correct: true },
+                    { text: "`<script>`", correct: false },
                 ]
             },
             {
-                question: "Fifth quiz",
+                question: "How do you specify the background color of an HTML document?",
                 answers: [
-                    { text: "Answer 1", correct: false },
-                    { text: "Answer 2", correct: false },
-                    { text: "Answer 3", correct: true },
-                    { text: "Answer 4", correct: false },
+                    { text: " `<background>color</background>` ", correct: false },
+                    { text: ' `<body style="background-color:#FFFFFF;">` ', correct: true },
+                    { text: '`<body background="color">`', correct: false },
+                    { text: '`<body background="color">` "', correct: false },
+                ]
+            },
+            {
+                question: "Which attribute is used with the `<img>` tag to display an image stored at a specific URL",
+                answers: [
+                    { text: "`link` ", correct: false },
+                    { text: "`source` ", correct: false },
+                    { text: " 'src ' ", correct: true },
+                    { text: "`href` ", correct: false },
+                ]
+            },
+            {
+                question: "What is the purpose of the `<title>` tag in an HTML document?",
+                answers: [
+                    { text: " To define the title of a table ", correct: false },
+                    { text: "To add a heading to a document ", correct: false },
+                    { text: "To set the title of the webpage that appears in the browser's title bar ", correct: true },
+                    { text: "To create a title in the body ", correct: false },
+                ]
+            },
+            {
+                question: "How can you make a list that lists the items with bullets?",
+                answers: [
+                    { text: "`<dl>`", correct: false },
+                    { text: "`<list>`", correct: false },
+                    { text: "`<ul>` ", correct: true },
+                    { text: "`<ol>`", correct: false },
+                ]
+            },
+            {
+                question: "What is the function of the `<meta>` tag in HTML?",
+                answers: [
+                    { text: "To create sections within a webpage ", correct: false },
+                    { text: "To link CSS and JavaScript files to the HTML document ", correct: false },
+                    { text: "To provide metadata such as author, page description, keywords and is useful for Search Engine Optimization(SEO) ", correct: true },
+                    { text: "To store data used by web browsers to optimize rendering ", correct: false },
+                ]
+            },
+            {
+                question: "Which attribute specifies a unique identifier for an HTML element?",
+                answers: [
+                    { text: "`class` ", correct: false },
+                    { text: "`unique` ", correct: false },
+                    { text: "`id` ", correct: true },
+                    { text: "`name` ", correct: false },
                 ]
             }
         ];
@@ -200,11 +263,31 @@
             }
         }
 
-        // show results based on the answers clicke correctly
-        function showResult() {       
+        function showResult() {
+            // Calculate the score
             score = questions.filter(quiz => quiz.answeredCorrectly).length;
+
+            // Display the score
             resultDisplay.textContent = `Your score: ${score}/${questions.length}`;
+
+            // Highlight correct answers
+            const allButtons = document.querySelectorAll('.btn');
+            allButtons.forEach(button => {
+                if (button.dataset.correct === 'true') {
+                button.classList.add('correct-answer');
+                }
+            });
+
+            // Show congratulatory message if score is 10
+                if (score === 10) {
+                   showCongratsMessage();
+              }
         }
+        function showCongratsMessage() {
+            // Display Congrats Message
+                alert("Congratulations! You got 10/10. Well done!");
+}
+        
 
         displayQuizzes();
         submitButton.addEventListener("click", () => {
@@ -216,7 +299,7 @@
             score = 0;
             resultDisplay.textContent = '';
 
-            // Reset the answeredCorrectly property of each question to false
+            // Reset the answered Correctly property of each question to false
             questions.forEach(quiz => {
                 quiz.answeredCorrectly = false;
             });
@@ -226,6 +309,7 @@
             answerButtons.forEach(button => {
                 button.classList.remove("clicked");
                 button.disabled = false;
+                button.classList.remove('correct-answer')
             });
         })
 
