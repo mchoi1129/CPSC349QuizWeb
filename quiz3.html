@@ -148,19 +148,19 @@
             {
                 question: "Choose the correct HTML element to define emphasized text",
                 answers: [
-                    { text: " `<background>color</background>` ", correct: false },
-                    { text: ' `<body style="background-color:#FFFFFF;">` ', correct: false },
-                    { text: '`<body background="color">`', correct: true },
-                    { text: '`<body background="color">` "', correct: false },
+                    { text: "<div>", correct: false },
+                    { text: '<italic>', correct: false },
+                    { text: '<em>', correct: true },
+                    { text: '<i>', correct: false },
                 ]
             },
             {
-                question: "Which attribute is used with the `<img>` tag to display an image stored at a specific URL",
+                question: "Which is the correct CSS syntax?",
                 answers: [
-                    { text: "<em>", correct: true },
-                    { text: "<div>", correct: false },
-                    { text: "<italic>", correct: false },
-                    { text: "<i>", correct: false },
+                    { text: "body {color: black;} ", correct: true },
+                    { text: "{body:color=black;} ", correct: false },
+                    { text: "{body;color:black;} ", correct: false },
+                    { text: "body:color=black;", correct: false },
                 ]
             },
             {
