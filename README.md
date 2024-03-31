@@ -4,29 +4,46 @@ Project 1
 CPSC 349: Web Frontend Engineering (Spring 2024)
 Due on 03/31 by 11:59 PM on Canvas
 
-Project Topic: Quiz
+HTML Mastery Quiz 
 
 Overview:
+
 Build an interactive quiz web application using HTML, CSS, Bootstrap, and JavaScript. Do NOT
 use React, as that will be your final project technology stack. The quiz web application must
 have multiple-choice questions (minimum 10 questions). Give a catchy name to your quiz
 web application.
 
-A few ideas but not limited to:
-● Multiple quizzes to choose from
-● Login/Registration Page
-● Score Tracker
-● Partial point calculation
-● Question bank with random questions popping up for different users
-… and more
 
-These are just a few ideas, but you can be as creative as possible. Take inspiration from
-Kahoot or Canvas.
+
+Functionality:
+
+Users can select answers by clicking on buttons.
+Correct answers are highlighted.
+Upon submitting the quiz, the user's score is displayed.
+A congratulatory message is shown if the user scores full marks (10/10).
+Users can reset the quiz to attempt it again.
+
+
+
+How to Use:
+
+Open the HTML file in a web browser.
+Take the quiz by selecting answers for each question.
+Submit the quiz to see your score.
+Optionally, reset the quiz to try again.
+
+
 
 Deliverables:
 1. Project files (all the html, css, and js files).
 2. Readme file on how to run the project.
 3. Project report with a brief explanation of the project.
+
+
+
+
+
+
 
 Grading Rubrics:
 
