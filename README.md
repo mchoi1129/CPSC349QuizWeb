@@ -40,11 +40,6 @@ Deliverables:
 3. Project report with a brief explanation of the project.
 
 
-
-
-
-
-
 Grading Rubrics:
 
 Functionality (60 points)
